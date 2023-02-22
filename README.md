@@ -1,6 +1,8 @@
 # AIGG
+AI智能生成游戏关卡
 
-基于坦克大战，AI智能生成游戏关卡
+## 基于cocos2d
+cocos creator研发的坦克大战游戏
 
 <!-- # Cocos_Fc_Tank
 Powerd by Cocos Creator 3.4.2 and https://github.com/ocfbnj/CocosCreatorTank
