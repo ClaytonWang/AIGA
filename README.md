@@ -1,4 +1,8 @@
-# Cocos_Fc_Tank
+# AIGG
+
+基于坦克大战，AI智能生成游戏关卡
+
+<!-- # Cocos_Fc_Tank
 Powerd by Cocos Creator 3.4.2 and https://github.com/ocfbnj/CocosCreatorTank
 
 1.疫情封在家，学一学Cocos Creator，边学边做，索性就把ocfbnj的老项目移植到Cocos Creator3.4.2。
@@ -25,4 +29,4 @@ Powerd by Cocos Creator 3.4.2 and https://github.com/ocfbnj/CocosCreatorTank
 
 11.还可以进一步优化坦克之间的碰撞算法，比如使用 松散的四叉树 或者 网格分割来优化。优化后性能会有很大提高。（正在测试稳定后提交）
 
-![20220417_10300620224171032391](https://user-images.githubusercontent.com/4351322/163697794-7c704260-69b4-4407-a469-9abd86c94bfe.gif)
+![20220417_10300620224171032391](https://user-images.githubusercontent.com/4351322/163697794-7c704260-69b4-4407-a469-9abd86c94bfe.gif) -->
