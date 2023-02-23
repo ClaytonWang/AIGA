@@ -16,19 +16,21 @@ export function world(_game) {
   };
   const load = (level = 1) => {
     _mapLayer.__reset();
+    _playerTank.active = false;
     _game.level = level;
     _game._stage = "";
-    _playerTank.active = false;
     _game.campNode.makeAlive();
+    _game.gameover = false;
 
     _mapLayer._loadMap();
   };
   const start = (level = 1, { stage = "" } = {}) => {
     _mapLayer.__reset();
+    _playerTank.active = true;
     _game.level = level;
     _game._stage = stage;
-    _playerTank.active = true;
     _game.campNode.makeAlive();
+    _game.gameover = false;
 
     _game.gameStart();
   };
