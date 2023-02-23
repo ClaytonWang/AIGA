@@ -81,9 +81,7 @@ export default class Game extends Component {
 
     // 设置相机背景色
     find("/Canvas/Camera").getComponent(Camera).clearColor = new Color(
-      100,
-      100,
-      100
+      "#7B68EE"
     );
 
     // 展示开场动画
