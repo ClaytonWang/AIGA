@@ -119,6 +119,7 @@ export default class Game extends Component {
           0
         );
         let bigGameOVer = find("/Canvas/External/big_gameover");
+        bigGameOVer.active = true;
         bigGameOVer.setPosition(0, 0);
 
         // TODO 2秒后回到主界面

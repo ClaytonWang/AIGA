@@ -328,6 +328,28 @@ export default class MapLayer extends Component {
     prop.getComponent(Prop).init();
   }
 
+  __reset() {
+    this._game.unscheduleAllCallBacksForTarget(this);
+    this._game.stopAction(this._revertAction);
+    //fix bug that can shoot bullet when level up
+    for (let player of this.players.children) {
+      player.getComponent(PlayerTank).controlStop();
+      player.getComponent(PlayerTank).canMove = false;
+    }
+
+    for (let enemy of this.enemies.children) {
+      let tank = enemy.getComponent(EnemyTank);
+      if (!tank.isStar) tank.disBlood(Globals.TANK_MAX_HP);
+    }
+
+    this._cleanChildNode();
+
+    const gameOver = find("/Canvas/External/big_gameover");
+    if (gameOver) {
+      gameOver.active = false;
+    }
+  }
+
   toNextStage() {
     this._game.level = this._game.level + 1;
     this._game.unscheduleAllCallBacksForTarget(this);

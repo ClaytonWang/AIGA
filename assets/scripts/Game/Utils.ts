@@ -14,6 +14,7 @@ export function world(_game) {
     cc.game.resume();
   };
   const start = (level = 1) => {
+    _mapLayer.__reset();
     _game.level = level;
     _game.gameStart();
   };
