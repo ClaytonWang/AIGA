@@ -19,6 +19,7 @@ export function world(_game) {
     _game.level = level;
     _game._stage = "";
     _playerTank.active = false;
+    _game.campNode.makeAlive();
 
     _mapLayer._loadMap();
   };
@@ -27,6 +28,7 @@ export function world(_game) {
     _game.level = level;
     _game._stage = stage;
     _playerTank.active = true;
+    _game.campNode.makeAlive();
 
     _game.gameStart();
   };

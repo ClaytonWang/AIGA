@@ -2006,6 +2006,10 @@
       "__uuid__": "efecd268-472b-498d-9fa0-fd70194fffad@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
+    "alive": {
+      "__uuid__": "37a2a733-5615-4705-8bca-f5d2fdc84238@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
     "_id": "d6EmFqmWBEwrHZmUZKWuy2"
   },
   {
@@ -3718,7 +3722,6 @@
       "__expectedType__": "cc.Prefab"
     },
     "_level": 36,
-    "mapLayer": null,
     "_id": "b4nQdHXjVPsIKnncEA4/oq"
   },
   {
@@ -3807,8 +3810,8 @@
   },
   {
     "__type__": "cc.ShadowsInfo",
-    "_type": 0,
     "_enabled": false,
+    "_type": 0,
     "_normal": {
       "__type__": "cc.Vec3",
       "x": 0,
@@ -3832,14 +3835,14 @@
   },
   {
     "__type__": "cc.SkyboxInfo",
+    "_envLightingType": 0,
     "_envmapHDR": null,
     "_envmap": null,
     "_envmapLDR": null,
     "_diffuseMapHDR": null,
     "_diffuseMapLDR": null,
     "_enabled": false,
-    "_useHDR": true,
-    "_envLightingType": 0
+    "_useHDR": true
   },
   {
     "__type__": "cc.FogInfo",

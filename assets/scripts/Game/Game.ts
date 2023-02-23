@@ -51,6 +51,8 @@ export default class Game extends Component {
   stageArea: Node = null;
   gameover: boolean = false;
 
+  campNode: any = null;
+
   private static instance = null;
   static single() {
     return Game.instance;
@@ -147,6 +149,11 @@ export default class Game extends Component {
       .getChildByName("MapLayer")
       .getComponent("MapLayer");
     this.stageArea = find("/Canvas/StageArea");
+
+    // for world
+    this.campNode = find("/Canvas/GameLayer/MapLayer/blocks/camp").getComponent(
+      "BlockCamp"
+    );
   }
   start() {
     world(this);
