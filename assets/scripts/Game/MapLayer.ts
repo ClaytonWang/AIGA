@@ -339,7 +339,7 @@ export default class MapLayer extends Component {
 
     for (let enemy of this.enemies.children) {
       let tank = enemy.getComponent(EnemyTank);
-      if (!tank.isStar) tank.disBlood(Globals.TANK_MAX_HP);
+      tank.disBlood(Globals.TANK_MAX_HP);
     }
 
     this._cleanChildNode();
