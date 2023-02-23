@@ -93,6 +93,7 @@ export default class MapLayer extends Component {
   _remainEnemiesCount: number;
   _pause: boolean = false;
   _revertAction: Tween<MapLayer> = null;
+  _mapData: string;
   createBullet(
     dir: Dir,
     pos: Vec3,
@@ -328,7 +329,7 @@ export default class MapLayer extends Component {
     prop.getComponent(Prop).init();
   }
 
-  __reset() {
+  _reset() {
     this._game.unscheduleAllCallBacksForTarget(this);
     this._game.stopAction(this._revertAction);
     //fix bug that can shoot bullet when level up
@@ -363,71 +364,80 @@ export default class MapLayer extends Component {
     if (!this._game.gameover) this._game.gameStart();
   }
 
-  _loadMap() {
-    this.blockTrans = new Array<Array<UITransform>>(26);
-    assetManager.loadBundle(
-      "maps",
-      (err: Error, bundle: AssetManager.Bundle) => {
-        bundle.load(
-          this._game.level.toString(),
-          TextAsset,
-          (err: Error, file: TextAsset) => {
-            let data = file.text;
-            let index = 0;
+  _renderMap(data) {
+    let index = 0;
 
-            for (let i = 0; i != 26; i++) {
-              this.blockTrans[25 - i] = new Array<UITransform>(26);
-              for (let j = 0; j != 26; j++) {
-                let block: Node;
+    for (let i = 0; i != 26; i++) {
+      this.blockTrans[25 - i] = new Array<UITransform>(26);
+      for (let j = 0; j != 26; j++) {
+        let block: Node;
 
-                switch (data[index++]) {
-                  case "3":
-                    block = instantiate(this.blockWall);
-                    block.name = "block_wall";
-                    block.getComponent(BlockWall).init();
-                    break;
-                  case "5":
-                    block = instantiate(this.blockStone);
-                    block.name = "block_stone";
-                    break;
-                  case "1":
-                    block = instantiate(this.blockForest);
-                    block.name = "block_forest";
-                    break;
-                  case "2":
-                    block = instantiate(this.blockIce);
-                    break;
-                  case "4":
-                    block = instantiate(this.blockRiver);
-                    block.name = "block_river";
-                    break;
-                  default:
-                    break;
-                }
+        switch (data[index++]) {
+          case "3":
+            block = instantiate(this.blockWall);
+            block.name = "block_wall";
+            block.getComponent(BlockWall).init();
+            break;
+          case "5":
+            block = instantiate(this.blockStone);
+            block.name = "block_stone";
+            break;
+          case "1":
+            block = instantiate(this.blockForest);
+            block.name = "block_forest";
+            break;
+          case "2":
+            block = instantiate(this.blockIce);
+            break;
+          case "4":
+            block = instantiate(this.blockRiver);
+            block.name = "block_river";
+            break;
+          default:
+            break;
+        }
 
-                if (block) {
-                  if (block.name != "block_forest") block.parent = this.blocks;
-                  else block.parent = this.front_blocks;
-                  block.getComponent(UITransform).setAnchorPoint(0, 0);
-                  block.setPosition(
-                    j * Globals.BLOCK_SIZE,
-                    (25 - i) * Globals.BLOCK_SIZE
-                  );
-                  this.blockTrans[25 - i][j] = block.getComponent(UITransform);
-                } else {
-                  this.blockTrans[25 - i][j] = null;
-                }
-              }
-            }
-            let home = this.blocks.children[0].getComponent(UITransform);
-            this.blockTrans[0][12] = home;
-            this.blockTrans[0][13] = home;
-            this.blockTrans[1][12] = home;
-            this.blockTrans[1][13] = home;
-          }
-        );
+        if (block) {
+          if (block.name != "block_forest") block.parent = this.blocks;
+          else block.parent = this.front_blocks;
+          block.getComponent(UITransform).setAnchorPoint(0, 0);
+          block.setPosition(
+            j * Globals.BLOCK_SIZE,
+            (25 - i) * Globals.BLOCK_SIZE
+          );
+          this.blockTrans[25 - i][j] = block.getComponent(UITransform);
+        } else {
+          this.blockTrans[25 - i][j] = null;
+        }
       }
-    );
+    }
+    let home = this.blocks.children[0].getComponent(UITransform);
+    this.blockTrans[0][12] = home;
+    this.blockTrans[0][13] = home;
+    this.blockTrans[1][12] = home;
+    this.blockTrans[1][13] = home;
+  }
+
+  _loadMap() {
+    const mapData = this._mapData;
+    this.blockTrans = new Array<Array<UITransform>>(26);
+    if (mapData) {
+      this._renderMap(mapData);
+    } else {
+      assetManager.loadBundle(
+        "maps",
+        (err: Error, bundle: AssetManager.Bundle) => {
+          bundle.load(
+            this._game.level.toString(),
+            TextAsset,
+            (err: Error, file: TextAsset) => {
+              let data = file.text;
+              this._renderMap(data);
+            }
+          );
+        }
+      );
+    }
   }
 
   _canSpawnTank(pos: Vec2) {

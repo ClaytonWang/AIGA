@@ -14,18 +14,20 @@ export function world(_game) {
   const resume = () => {
     cc.game.resume();
   };
-  const load = (level = 1) => {
-    _mapLayer.__reset();
+  const load = ({ level = 1, map = "" } = {}) => {
+    _mapLayer._reset();
+    _mapLayer._mapData = map;
     _playerTank.active = false;
     _game.level = level;
     _game._stage = "";
     _game.campNode.makeAlive();
     _game.gameover = false;
 
-    _mapLayer._loadMap();
+    _mapLayer._loadMap(map);
   };
-  const start = (level = 1, { stage = "" } = {}) => {
-    _mapLayer.__reset();
+  const start = ({ level = 1, stage = "AI", map = "" } = {}) => {
+    _mapLayer._reset();
+    _mapLayer._mapData = map;
     _playerTank.active = true;
     _game.level = level;
     _game._stage = stage;
