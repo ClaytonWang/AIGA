@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'umi';
-import styles from './index.less';
+import './index.less';
 
 export default function Layout() {
   return (
