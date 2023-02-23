@@ -40,6 +40,7 @@ export default class Game extends Component {
   black: Prefab = null;
   @property(CCInteger)
   _level: number = 1;
+  _stage: string;
   _gameMode: GameMode = GameMode.ONE;
   actionManager = new TweenSystem().ActionManager;
   scheduler = new Scheduler();
@@ -252,7 +253,7 @@ export default class Game extends Component {
     // 激活Stage
     this.stageArea.active = true;
     this.stageArea.getChildByName("level").getComponent(Label).string =
-      this._level.toString();
+      this._stage || this._level.toString();
     //let gameLayer = find("/Canvas/GameLayer");
     //let mapLayer = gameLayer.getChildByName("MapLayer").getComponent(MapLayer);
     //预加载地图

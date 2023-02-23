@@ -13,9 +13,10 @@ export function world(_game) {
   const resume = () => {
     cc.game.resume();
   };
-  const start = (level = 1) => {
+  const start = (level = 1, { stage = "" } = {}) => {
     _mapLayer.__reset();
     _game.level = level;
+    _game._stage = stage;
     _game.gameStart();
   };
 
