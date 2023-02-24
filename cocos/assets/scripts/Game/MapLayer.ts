@@ -352,7 +352,9 @@ export default class MapLayer extends Component {
   }
 
   toNextStage() {
-    this._game.level = this._game.level + 1;
+    if (this._game._autoLevelUp) {
+      this._game.level = this._game.level + 1;
+    }
     this._game.unscheduleAllCallBacksForTarget(this);
     this._game.stopAction(this._revertAction);
     //fix bug that can shoot bullet when level up

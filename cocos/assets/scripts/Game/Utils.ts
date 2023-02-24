@@ -35,6 +35,7 @@ export function world(_game) {
       _mapLayer._reset();
       _mapLayer._mapData = map;
       _playerTank.active = false;
+      _game._autoLevelUp = false;
       _game.level = level;
       _game._stage = "";
       _game.campNode.makeAlive();
@@ -46,6 +47,7 @@ export function world(_game) {
       _mapLayer._reset();
       _mapLayer._mapData = map;
       _playerTank.active = true;
+      _game._autoLevelUp = false;
       _game.level = level;
       _game._stage = stage;
       _game.campNode.makeAlive();

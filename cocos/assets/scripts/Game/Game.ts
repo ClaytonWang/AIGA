@@ -41,6 +41,7 @@ export default class Game extends Component {
   @property(CCInteger)
   _level: number = 1;
   _stage: string;
+  _autoLevelUp: boolean = true;
   _gameMode: GameMode = GameMode.ONE;
   actionManager = new TweenSystem().ActionManager;
   scheduler = new Scheduler();
