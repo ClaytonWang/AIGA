@@ -41,7 +41,10 @@ export function world(_game) {
       _game.campNode.makeAlive();
       _game.gameover = false;
 
+      _mapLayer.init();
       _mapLayer._loadMap(map);
+
+      _game._startGameLayer();
     };
     const start = ({ level = 1, stage = "AI", map = "" } = {}) => {
       _mapLayer._reset();

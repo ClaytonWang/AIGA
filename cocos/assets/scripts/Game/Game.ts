@@ -253,6 +253,18 @@ export default class Game extends Component {
     this.runAction(ac2);
   }
 
+  _startGameLayer = () => {
+    // 关闭Stage
+    this.stageArea.active = false;
+    // 开启GameLayer
+    this.gameLayer.active = true;
+    let informations = this.gameLayer
+      .getChildByName("Informations")
+      .getComponent(UpdateInformations);
+    // 初始化信息区域
+    informations.init(this._level);
+  };
+
   showStage() {
     //let stageArea = find("/Canvas/StageArea");
 
@@ -268,17 +280,7 @@ export default class Game extends Component {
 
     this.scheduleOne(
       () => {
-        // 关闭Stage
-
-        this.stageArea.active = false;
-
-        // 开启GameLayer
-        this.gameLayer.active = true;
-        let informations = this.gameLayer
-          .getChildByName("Informations")
-          .getComponent(UpdateInformations);
-        // 初始化信息区域
-        informations.init(this._level);
+        this._startGameLayer();
         // 启动生成逻辑
         this.mapLayer.spawn();
       },

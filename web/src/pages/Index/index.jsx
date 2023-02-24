@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Input } from "antd";
 import game from "@/utils/game";
-import { AwesomeButton } from "react-awesome-button";
+import { AwesomeButtonProgress } from "react-awesome-button";
 import "./index.less";
 import "react-awesome-button/dist/styles.css";
 
@@ -34,6 +34,31 @@ export default function HomePage() {
       return () => window.clearTimeout(timer);
     }, 100);
   }, []);
+
+  const handleStart = useCallback(
+    (element, next) => {
+      if (level && mapData) {
+        game.start({
+          level,
+          map: game.encodeMap(mapData),
+        });
+      }
+      next();
+    },
+    [level, mapData]
+  );
+  const handleRandom = useCallback(
+    (element, next) => {
+      let nextLevel = game.random();
+      while (nextLevel === level) {
+        nextLevel = game.random();
+      }
+      setLevel(nextLevel);
+      next();
+    },
+    [level]
+  );
+
   return (
     <div className="game-wrapper">
       <div className="game-world game-section">
@@ -63,11 +88,16 @@ export default function HomePage() {
               className="game-map-input"
             />
           </div>
-          <div className="button-section">
-            <AwesomeButton className="game-button" type="secondary">
-              启动游戏
-            </AwesomeButton>
-          </div>
+          {level && (
+            <div className="button-section">
+              <AwesomeButtonProgress type="secondary" onPress={handleStart}>
+                启动游戏
+              </AwesomeButtonProgress>
+              <AwesomeButtonProgress type="primary" onPress={handleRandom}>
+                随机关卡
+              </AwesomeButtonProgress>
+            </div>
+          )}
         </div>
       </div>
     </div>

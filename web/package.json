@@ -9,6 +9,7 @@
     "start": "npm run dev"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
     "antd": "^5.2.2",
     "lodash": "^4.17.21",
     "react-awesome-button": "^7.0.5",
