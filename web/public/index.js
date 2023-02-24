@@ -13,17 +13,17 @@ System.register(["./application.js"], function (_export, _context) {
         }
       }
 
-      window.addEventListener('error', windowErrorListener);
-      var script = document.createElement('script');
-      script.charset = 'utf-8';
+      window.addEventListener("error", windowErrorListener);
+      var script = document.createElement("script");
+      script.charset = "utf-8";
       script.async = true;
-      script.crossOrigin = 'anonymous';
-      script.addEventListener('error', function () {
-        window.removeEventListener('error', windowErrorListener);
-        reject(Error('Error loading ' + url));
+      script.crossOrigin = "anonymous";
+      script.addEventListener("error", function () {
+        window.removeEventListener("error", windowErrorListener);
+        reject(Error("Error loading " + url));
       });
-      script.addEventListener('load', function () {
-        window.removeEventListener('error', windowErrorListener);
+      script.addEventListener("load", function () {
+        window.removeEventListener("error", windowErrorListener);
         document.head.removeChild(script); // Note that if an error occurs that isn't caught by this if statement,
         // that getRegister will return null and a "did not instantiate" error will be thrown.
 
@@ -43,23 +43,24 @@ System.register(["./application.js"], function (_export, _context) {
   }
 
   function findCanvas() {
-    var frame = document.querySelector('#GameDiv');
-    var container = document.querySelector('#Cocos3dGameContainer');
-    var canvas = document.querySelector('#GameCanvas');
-    canvas.setAttribute('tabindex', '99');
+    var frame = document.querySelector("#GameDiv");
+    var container = document.querySelector("#Cocos3dGameContainer");
+    var canvas = document.querySelector("#GameCanvas");
+    canvas.setAttribute("tabindex", "99");
     return {
       frame: frame,
       container: container,
-      canvas: canvas
+      canvas: canvas,
     };
   }
 
   function addClass(element, name) {
-    var hasClass = (' ' + element.className + ' ').indexOf(' ' + name + ' ') > -1;
+    var hasClass =
+      (" " + element.className + " ").indexOf(" " + name + " ") > -1;
 
     if (!hasClass) {
       if (element.className) {
-        element.className += ' ';
+        element.className += " ";
       }
 
       element.className += name;
@@ -67,20 +68,24 @@ System.register(["./application.js"], function (_export, _context) {
   }
 
   return {
-    setters: [function (_applicationJs) {
-      createApplication = _applicationJs.createApplication;
-    }],
+    setters: [
+      function (_applicationJs) {
+        createApplication = _applicationJs.createApplication;
+      },
+    ],
     execute: function () {
       createApplication({
         loadJsListFile: loadJsListFile,
-        fetchWasm: fetchWasm
-      }).then(function (application) {
-        return application.start({
-          findCanvas: findCanvas
+        fetchWasm: fetchWasm,
+      })
+        .then(function (application) {
+          return application.start({
+            findCanvas: findCanvas,
+          });
+        })
+        ["catch"](function (err) {
+          console.error(err);
         });
-      })["catch"](function (err) {
-        console.error(err);
-      });
-    }
+    },
   };
 });
