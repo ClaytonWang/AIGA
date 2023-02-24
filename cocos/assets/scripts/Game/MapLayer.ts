@@ -418,6 +418,21 @@ export default class MapLayer extends Component {
     this.blockTrans[1][13] = home;
   }
 
+  _getMapData(level: number, cb: Function) {
+    assetManager.loadBundle(
+      "maps",
+      (err: Error, bundle: AssetManager.Bundle) => {
+        bundle.load(
+          level.toString(),
+          TextAsset,
+          (err: Error, file: TextAsset) => {
+            cb(err, file.text);
+          }
+        );
+      }
+    );
+  }
+
   _loadMap() {
     const mapData = this._mapData;
     this.blockTrans = new Array<Array<UITransform>>(26);

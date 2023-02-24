@@ -8,6 +8,17 @@ export function adjustNumber(number: number) {
 export function world(_game) {
   const _mapLayer = _game.mapLayer;
   const _playerTank = _mapLayer.players.children[0];
+  const getMapDataByLevel = (level) => {
+    return new Promise((resolve, reject) => {
+      _mapLayer._getMapData(level, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    });
+  };
   const pause = () => {
     cc.game.pause();
   };
@@ -43,5 +54,6 @@ export function world(_game) {
     resume,
     load,
     start,
+    getMapDataByLevel,
   };
 }
