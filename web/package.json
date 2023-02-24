@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "antd": "^5.2.2",
+    "lodash": "^4.17.21",
     "react-awesome-button": "^7.0.5",
     "umi": "^4.0.52"
   },
