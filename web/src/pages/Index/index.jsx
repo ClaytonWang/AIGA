@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Input } from "antd";
 import game from "@/utils/game";
 import { AwesomeButton } from "react-awesome-button";
@@ -6,9 +6,32 @@ import "./index.less";
 import "react-awesome-button/dist/styles.css";
 
 export default function HomePage() {
+  const [level, setLevel] = useState();
+  const [mapData, setMapData] = useState("");
+
+  useMemo(() => {
+    if (level) {
+      game.getMapDataByLevel(level).then((map) => {
+        setMapData(game.decodeMap(map));
+      });
+    } else {
+      setMapData("");
+    }
+  }, [level]);
+  useMemo(() => {
+    if (mapData) {
+      game.load({
+        level,
+        map: game.encodeMap(mapData),
+      });
+    }
+  }, [level, mapData]);
   useEffect(() => {
-    window.setTimeout(() => {
-      game.init();
+    const timer = window.setTimeout(() => {
+      game.init().then(() => {
+        setLevel(game.random());
+      });
+      return () => window.clearTimeout(timer);
     }, 100);
   }, []);
   return (
@@ -31,6 +54,8 @@ export default function HomePage() {
           </div>
           <div className="map-section">
             <Input.TextArea
+              value={mapData}
+              onChange={(e) => setMapData(e.target.value)}
               autoSize={{
                 minRows: 26,
                 maxRows: 26,

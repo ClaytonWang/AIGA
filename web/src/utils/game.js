@@ -1,13 +1,27 @@
 import _ from "lodash";
 
+let execed = false;
 let inited = false;
 const init = () => {
-  if (!inited) {
-    inited = true;
-    window?.System.import("./index.js").catch(function (err) {
-      console.error(err);
+  if (!execed) {
+    execed = true;
+    return new Promise((resolve, reject) => {
+      window.addEventListener("GAMEWORLD_INIT", () => {
+        inited = true;
+        Object.assign(game, window.__gameworld__ || {});
+        resolve(inited);
+      });
+      window?.System.import("./index.js").catch(function (err) {
+        console.error(err);
+        reject(err);
+      });
     });
   }
+  return Promise.resolve(inited);
+};
+
+const random = () => {
+  return _.random(1, 36);
 };
 
 // 格式化map数据,for game
@@ -43,6 +57,9 @@ const decodeMap = (mapStr) => {
 const game = (() => {
   return {
     init,
+    random,
+    decodeMap,
+    encodeMap,
   };
 })();
 
