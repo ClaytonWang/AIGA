@@ -5,11 +5,11 @@ WORKDIR /www
 
 COPY package*.json .
 
-RUN yarn --registry=https://registry.npmmirror.com
+RUN npm install --registry=https://registry.npmmirror.com
 
 COPY . .
 
-RUN yarn build
+RUN npm run build
 
 FROM nginx:stable-alpine
 
