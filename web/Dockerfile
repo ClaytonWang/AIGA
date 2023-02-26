@@ -5,6 +5,8 @@ WORKDIR /www
 
 COPY package*.json .
 
+COPY *.lock .
+
 RUN yarn --registry=https://registry.npmmirror.com
 
 COPY . .
