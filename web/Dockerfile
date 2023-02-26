@@ -5,11 +5,11 @@ WORKDIR /www
 
 COPY package*.json .
 
-RUN npm install --registry=https://registry.npmmirror.com
+RUN yarn --registry=https://registry.npmmirror.com
 
 COPY . .
 
-RUN npm run build
+RUN yarn build
 
 FROM nginx:stable-alpine
 
@@ -17,6 +17,6 @@ COPY deploy/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
 COPY deploy/nginx.conf /etc/nginx/nginx.conf
 
-COPY --from=front /www/build /usr/share/nginx/html/www
+COPY --from=front /www/dist /usr/share/nginx/html/www
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
