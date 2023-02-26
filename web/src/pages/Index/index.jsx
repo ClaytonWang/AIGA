@@ -42,6 +42,7 @@ export default function HomePage() {
           level,
           map: game.encodeMap(mapData),
         });
+        document.getElementById("GameCanvas").focus();
       }
       next();
     },
