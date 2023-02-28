@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import game from "@/utils/game";
-
+import { ManualMap, ChatMap } from "./components";
 import "./index.less";
-import { ManualMap } from "./components";
 import "react-awesome-button/dist/styles.css";
 
 export default function HomePage() {
@@ -71,13 +70,20 @@ export default function HomePage() {
       </div>
       <div className="game-config game-section">
         <div className="config-zone">
-          <ManualMap
+          <ChatMap
             handleStart={handleStart}
             handleRandom={handleRandom}
             setMapData={setMapData}
             mapData={mapData}
             level={level}
           />
+          {/* <ManualMap
+            handleStart={handleStart}
+            handleRandom={handleRandom}
+            setMapData={setMapData}
+            mapData={mapData}
+            level={level}
+          /> */}
         </div>
       </div>
     </div>
