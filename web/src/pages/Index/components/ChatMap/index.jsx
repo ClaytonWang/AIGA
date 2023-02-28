@@ -3,6 +3,17 @@ import Chat, { Bubble, useMessages } from "@chatui/core";
 import "@chatui/core/dist/index.css";
 import "./index.less";
 
+const getResponse = async (input) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        type: "text",
+        content: { text: input },
+      });
+    }, 1000);
+  });
+};
+
 const initialMessages = [
   {
     type: "text",
@@ -16,18 +27,12 @@ const initialMessages = [
 // 默认快捷短语，可选
 const defaultQuickReplies = [
   {
-    name: "开始游戏",
-    isNew: true,
-    isHighlight: true,
+    name: "AI关卡",
     text: "",
+    isNew: true,
   },
   {
     name: "随机关卡",
-    text: "",
-  },
-  {
-    name: "AI关卡",
-    text: "",
   },
 ];
 
@@ -46,14 +51,16 @@ const ChatMap = () => {
       });
 
       setTyping(true);
-
-      // 模拟回复消息
-      setTimeout(() => {
-        appendMsg({
-          type: "text",
-          content: { text: "亲，您遇到什么问题啦？请简要描述您的问题~" },
-        });
-      }, 1000);
+      getResponse(val).then((res) => {
+        if (res) {
+          appendMsg({
+            ...res,
+            user: {
+              avatar: "/image/logo.png",
+            },
+          });
+        }
+      });
     }
   }, []);
   // 快捷操作
@@ -64,7 +71,6 @@ const ChatMap = () => {
   // 渲染消息体
   const renderMessageContent = useCallback((msg) => {
     const { type, content } = msg;
-
     // 根据消息类型来渲染
     switch (type) {
       case "text":
