@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import Chat, { Bubble, useMessages } from "@chatui/core";
+import Map from "@/components/Map";
 import "@chatui/core/dist/index.css";
 import "./index.less";
 
