@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
+    "@chatui/core": "^2.4.2",
     "antd": "^5.2.2",
     "lodash": "^4.17.21",
     "react-awesome-button": "^7.0.5",

@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Input } from "antd";
 import game from "@/utils/game";
-import { AwesomeButtonProgress } from "react-awesome-button";
+
 import "./index.less";
+import { ManualMap } from "./components";
 import "react-awesome-button/dist/styles.css";
 
 export default function HomePage() {
@@ -71,34 +71,13 @@ export default function HomePage() {
       </div>
       <div className="game-config game-section">
         <div className="config-zone">
-          <div className="tip-section">
-            <p>
-              <b>Tips: </b>
-              <br />
-              <i>WASD 方向；J 发射</i>
-            </p>
-          </div>
-          <div className="map-section">
-            <Input.TextArea
-              value={mapData}
-              onChange={(e) => setMapData(e.target.value)}
-              autoSize={{
-                minRows: 26,
-                maxRows: 26,
-              }}
-              className="game-map-input"
-            />
-          </div>
-          {level && (
-            <div className="button-section">
-              <AwesomeButtonProgress type="secondary" onPress={handleStart}>
-                启动游戏
-              </AwesomeButtonProgress>
-              <AwesomeButtonProgress type="primary" onPress={handleRandom}>
-                随机关卡
-              </AwesomeButtonProgress>
-            </div>
-          )}
+          <ManualMap
+            handleStart={handleStart}
+            handleRandom={handleRandom}
+            setMapData={setMapData}
+            mapData={mapData}
+            level={level}
+          />
         </div>
       </div>
     </div>
