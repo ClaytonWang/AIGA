@@ -1,4 +1,4 @@
-import { map } from "lodash";
+import _ from "lodash";
 import { Stage, Sprite } from "@inlet/react-pixi";
 
 const Map = ({ data }) => {
@@ -7,7 +7,7 @@ const Map = ({ data }) => {
   const [width, height] = [row * spriteSize, col * spriteSize];
   return (
     <Stage width={width} height={height}>
-      {map(data, (key, index) => {
+      {_.map(data, (key, index) => {
         if (key >= 1 && key <= 5) {
           const position = [
             (index % 26) * spriteSize,

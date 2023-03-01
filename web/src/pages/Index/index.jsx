@@ -21,16 +21,22 @@ export default function HomePage() {
     });
     document.getElementById("GameCanvas").focus();
   }, []);
+  const getRandomMap = useCallback(() => {
+    let nextLevel = game.random();
+    return game.getMapDataByLevel(nextLevel).then((map) => {
+      return map;
+    });
+  }, []);
 
-  useMemo(() => {
-    if (level) {
-      game.getMapDataByLevel(level).then((map) => {
-        setMapData(game.decodeMap(map));
-      });
-    } else {
-      setMapData("");
-    }
-  }, [level]);
+  // useMemo(() => {
+  //   if (level) {
+  //     game.getMapDataByLevel(level).then((map) => {
+  //       setMapData(game.decodeMap(map));
+  //     });
+  //   } else {
+  //     setMapData("");
+  //   }
+  // }, [level]);
   useMemo(() => {
     if (mapData) {
       loadMap(mapData, level);
@@ -79,13 +85,9 @@ export default function HomePage() {
         <div className="config-zone">
           {level && (
             <ChatMap
-              handleStart={handleStart}
-              handleRandom={handleRandom}
-              setMapData={setMapData}
-              mapData={mapData}
               loadMap={loadMap}
               startGame={startGame}
-              level={level}
+              getRandomMap={getRandomMap}
             />
           )}
 
