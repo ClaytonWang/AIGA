@@ -37,7 +37,7 @@ const getResponse = async (input) => {
   try {
     const prompt = (() => {
       if (_.toUpper(input) === "AI关卡") {
-        return "生成26 * 26的坦克大战地图";
+        return "";
       }
       return input;
     })();
