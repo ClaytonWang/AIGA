@@ -16,4 +16,11 @@ export default defineConfig({
   alias: {
     "@": path.resolve(__dirname, "src"),
   },
+  proxy: {
+    "/api": {
+      target: "http://123.60.151.211:17008/",
+      changeOrigin: true,
+      pathRewrite: { "^/api": "" },
+    },
+  },
 });
