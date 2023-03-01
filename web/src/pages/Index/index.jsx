@@ -8,6 +8,20 @@ export default function HomePage() {
   const [level, setLevel] = useState();
   const [mapData, setMapData] = useState("");
 
+  const loadMap = useCallback((data, lv = "AI") => {
+    game.load({
+      level: lv,
+      map: game.encodeMap(data),
+    });
+  }, []);
+  const startGame = useCallback((data, lv = "AI") => {
+    game.start({
+      level: lv,
+      map: game.encodeMap(data),
+    });
+    document.getElementById("GameCanvas").focus();
+  }, []);
+
   useMemo(() => {
     if (level) {
       game.getMapDataByLevel(level).then((map) => {
@@ -19,12 +33,9 @@ export default function HomePage() {
   }, [level]);
   useMemo(() => {
     if (mapData) {
-      game.load({
-        level,
-        map: game.encodeMap(mapData),
-      });
+      loadMap(mapData, level);
     }
-  }, [level, mapData]);
+  }, [level, mapData, loadMap]);
   useEffect(() => {
     const timer = window.setTimeout(() => {
       game.init().then(() => {
@@ -37,13 +48,9 @@ export default function HomePage() {
   const handleStart = useCallback(
     (element, next) => {
       if (level && mapData) {
-        game.start({
-          level,
-          map: game.encodeMap(mapData),
-        });
-        document.getElementById("GameCanvas").focus();
+        startGame(mapData, level);
       }
-      next();
+      next?.();
     },
     [level, mapData]
   );
@@ -54,7 +61,7 @@ export default function HomePage() {
         nextLevel = game.random();
       }
       setLevel(nextLevel);
-      next();
+      next?.();
     },
     [level]
   );
@@ -70,13 +77,18 @@ export default function HomePage() {
       </div>
       <div className="game-config game-section">
         <div className="config-zone">
-          <ChatMap
-            handleStart={handleStart}
-            handleRandom={handleRandom}
-            setMapData={setMapData}
-            mapData={mapData}
-            level={level}
-          />
+          {level && (
+            <ChatMap
+              handleStart={handleStart}
+              handleRandom={handleRandom}
+              setMapData={setMapData}
+              mapData={mapData}
+              loadMap={loadMap}
+              startGame={startGame}
+              level={level}
+            />
+          )}
+
           {/* <ManualMap
             handleStart={handleStart}
             handleRandom={handleRandom}
