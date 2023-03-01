@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { Popover } from "antd";
 import Chat, { Bubble, useMessages } from "@chatui/core";
 import Map from "@/components/Map";
+import { sendMessage } from "@/services/chatgpt";
 import { AwesomeButtonProgress } from "react-awesome-button";
 import "@chatui/core/dist/index.css";
 import "./index.less";
@@ -54,6 +55,11 @@ const ChatMap = ({ handleRandom, mapData, loadMap, startGame }) => {
       });
     }
   }, [mapData]);
+
+  // TEMP
+  useEffect(() => {
+    sendMessage("生成一个26*26的坦克大战地图");
+  }, []);
 
   // 渲染地图
   const handleClickMap = useCallback((v, next) => {

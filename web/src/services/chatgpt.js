@@ -1,4 +1,4 @@
-import { request } from "umi";
+import request from "@/services/request";
 
 const CHATGPT_DEFAULT_DATA = {
   chat_id: "bba972a7-4f5e-4980-9c44-0592ec0e5e0e",
@@ -6,7 +6,7 @@ const CHATGPT_DEFAULT_DATA = {
 };
 
 const sendMessage = (prompt) => {
-  return request.post("/api/message/send", {
+  return request.post("/message/send", {
     ...CHATGPT_DEFAULT_DATA,
     prompt,
   });
